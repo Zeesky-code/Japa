@@ -1,12 +1,16 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const userRoute  = require('./routes/user.route')
+const passport = require('passport')
 
 const app = express();
 
+require('./middlewares/auth')
 const {connectToMongoDB} =  require('./db')
+
 connectToMongoDB()
 
+app.use(passport.initialize());
 app.use(bodyParser.urlencoded({extended:false}))
 
 app.use('/user', userRoute)

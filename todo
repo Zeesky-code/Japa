@@ -1,1 +1,1 @@
--move login and signup functions to jwt
+- move login and signup functions to jwt and passport
