@@ -20,6 +20,7 @@ const UserSchema = new Schema({
 {collection:'User'}
 )
 
+//hashing passwords for security
 UserSchema.pre(
     'save',
     async function (next) {
@@ -35,6 +36,13 @@ UserSchema.pre(
     }
 );
 
+//checking if password is correct during login
+UserSchema.methods.isValidPassword = async function(password) {
+    const user = this;
+    
+    const compare = await bcrypt.compare(password, user.password);
+    return compare;
+}
 const UserModel = mongoose.model('User', UserSchema);
 
 module.exports = UserModel;

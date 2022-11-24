@@ -1,5 +1,1 @@
--Setup project
-- Link to DB
-- Create User schema
-- set up home page
-- user auth
+-move login and signup functions to jwt
