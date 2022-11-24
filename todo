@@ -1,1 +1,3 @@
-- move login and signup functions to jwt and passport
+- add item model
+- add validator for user and item model with joi
+- add jwt token after login with passport
