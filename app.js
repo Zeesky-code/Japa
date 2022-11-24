@@ -4,9 +4,11 @@ const {connectToMongoDB} =  require('./db')
 const PORT = 7000;
 const app = express();
 
-// temporarily disabled to allow easy testing of home page
 connectToMongoDB()
 
+const userRoute  = require('./routes/user.route')
+
+app.use('/user', userRoute)
 
 app.get('/', (req,res)=>{
     res.status(200).json({

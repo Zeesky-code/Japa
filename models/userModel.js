@@ -8,9 +8,17 @@ const UserSchema = new Schema({
         required: true
     },
     email:{
-        type: String
+        type: String,
+        unique: true
     },
     password:{
-        
+        type: String,
+        required: true
     }
-})
+},
+{collection:'User'}
+)
+
+const UserModel = mongoose.model('User', UserSchema);
+
+module.exports = UserModel;
