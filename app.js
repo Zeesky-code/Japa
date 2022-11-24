@@ -1,12 +1,13 @@
 const express = require('express')
-const {connectToMongoDB} =  require('./db')
+const bodyParser = require('body-parser')
+const userRoute  = require('./routes/user.route')
 
-const PORT = 7000;
 const app = express();
 
+const {connectToMongoDB} =  require('./db')
 connectToMongoDB()
 
-const userRoute  = require('./routes/user.route')
+app.use(bodyParser.urlencoded({extended:false}))
 
 app.use('/user', userRoute)
 

@@ -1,8 +1,13 @@
-const user = require('./models/userModel')
+const userModel = require('../models/userModel')
 async function userSignup(req,res,next) {
+    const user = {
+        email: req.body.email,
+        username: req.body.username,
+        password: req.body.password
+    }
     try{
-        const user = req.body
-        const newUser = await UserModel.create({ email, password, first_name, last_name });
+        const newUser = await userModel.create(user);
+
         return res.status(201).json({
             status: false,
             message: "Signup successful",
@@ -11,7 +16,9 @@ async function userSignup(req,res,next) {
     }catch(error){
         return res.status(401).json({
             status: false,
-            message: "Signup failed"
+            message: "Signup failed",
+            error
+
         })
     }
 }
