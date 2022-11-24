@@ -23,3 +23,29 @@ passport.use(
         }
     )
 )
+passport.use(
+    'login',
+    new localStrategy(
+        {
+            usernameField: 'username',
+            passwordField: 'password',
+            passReqToCallback: true
+        },
+        async (req,username, password, done) => {
+            let message
+            const user = await userModel.findOne({username: username})
+            if (!user){
+                message = "User does not exist"
+                return done(null, message)
+            }
+            const validate  = await user.isValidPassword(req.body.password)
+
+            if (!validate){
+                message = "Username or Password is incorrect"
+                return done(null, message)
+            }
+            message = "Login successful"
+            return done(user, message)
+        }
+    )
+)

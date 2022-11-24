@@ -22,25 +22,21 @@ async function userSignup(req,res,next) {
 }
 
 async function userLogin(req,res,next){
-    const user = await userModel.findOne({username: req.body.username})
-    if (!user){
-        return res.status(400).json({
-            status: false,
-            message: "This user doesn't exist"
+    passport.authenticate('login', async(user, message) =>{
+        if (!user){
+            return res.status(400).json({
+                status: false,
+                message: message,
+            })
+        }
+        res.status(201).json({
+            status: true,
+            message: message,
+            user
+    
         })
-    }
-    const validate  = await user.isValidPassword(req.body.password)
+    })(req,res,next)
 
-    if (!validate){
-        return res.status(400).json({
-            status: false,
-            message: "Username or Password is incorrect"
-        })
-    }
-    return res.status(200).json({
-        status: true,
-        message: "Login Successful"
-    })
 }
 module.exports ={
     userSignup,
